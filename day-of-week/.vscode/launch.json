@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'day-of-week'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=day-of-week",
+                    "--package=day-of-week"
+                ],
+                "filter": {
+                    "name": "day-of-week",
+                    "kind": "bin"
+                }
+            },
+            "args": ["1973-10-11"],
+            "cwd": "${workspaceFolder}",
+            "sourceLanguages": ["rust"]
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'day-of-week'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=day-of-week",
+                    "--package=day-of-week"
+                ],
+                "filter": {
+                    "name": "day-of-week",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+
+    ]
+}
