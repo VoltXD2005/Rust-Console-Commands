@@ -1,6 +1,10 @@
+// This is a simple Rust program that determines the zodiac sign for a given date.
+// It demonstrates how to read command-line arguments, parse input, and use pattern matching.
+
 use chrono::NaiveDate;
 use std::env;
 
+// This function determines the zodiac sign based on month and day.
 fn zodiac_sign(month: u32, day: u32) -> &'static str {
     match (month, day) {
         (1, 20..) | (2, ..=18) => "Aquarius",
@@ -20,8 +24,9 @@ fn zodiac_sign(month: u32, day: u32) -> &'static str {
 }
 
 fn main() {
-
     let args: Vec<String> = env::args().collect();
+
+    // Expect the date as MM/DD
     if args.len() != 2 {
         println!("Usage: {} MM/DD", args[0]);
         return;
@@ -33,20 +38,17 @@ fn main() {
         return;
     }
 
+    // Parse month and day from the input string.
     let month: u32 = parts[0].trim().parse().unwrap_or(0);
-    // println!("month: {}", month);
-    // println!("parts[1]: {}", parts[1]);
-
-    let result = parts[1].trim().parse::<u32>();
-    let day = match result {
+    let day: u32 = match parts[1].trim().parse() {
         Ok(d) => d,
         Err(m) => {
-            println!("Error: {}",m);
+            println!("Error: {}", m);
             return;
         }
     };
-    // println!("day: {}", day);
 
+    // Validate the date using chrono's NaiveDate.
     if NaiveDate::from_ymd_opt(2024, month, day).is_none() {
         println!("Invalid date");
         return;
@@ -54,3 +56,4 @@ fn main() {
     let sign = zodiac_sign(month, day);
     println!("{}", sign);
 }
+// Add to Cargo.toml: chrono = "0.4"

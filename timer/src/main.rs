@@ -1,26 +1,21 @@
-/*
-.\timer.exe 5
-# Output:
-# 5...
-# 4...
-# 3...
-# 2...
-# 1...
-# Time's up!
-*/
+// This is a simple Rust program that waits for a specified number of seconds.
+// It demonstrates how to read command-line arguments and use timers.
 
-use std::{env, thread, time::Duration};
+use std::env;
+use std::thread;
+use std::time::Duration;
 
 fn main() {
+    // args[0] is the program name, args[1] is the number of seconds to wait.
     let args: Vec<String> = env::args().collect();
+
     if args.len() != 2 {
         eprintln!("Usage: timer <seconds>");
         std::process::exit(1);
     }
-    let seconds: u64 = args[1].parse().expect("Please enter a valid number");
-    for i in (1..=seconds).rev() {
-        println!("{}...", i);
-        thread::sleep(Duration::from_secs(1));
-    }
-    println!("Time's up!");
+
+    let secs: u64 = args[1].parse().expect("Please provide a valid number of seconds");
+    println!("Waiting for {} seconds...", secs);
+    thread::sleep(Duration::from_secs(secs));
+    println!("Done!");
 }

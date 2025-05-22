@@ -1,15 +1,22 @@
 /*
-.\ascii-art.exe Rust
-# Output:
-#  RRR  U U  SSS  TTT 
-#  R R  U U  S     T  
-#  RR   U U   S    T  
-#  R R  U U     S  T  
-#  R R   UU  SS   T  
+This is a simple Rust program that prints ASCII art for a given string.
+It demonstrates how to read command-line arguments, use arrays, and print stylized output.
+
+Example usage:
+    .\ascii-art.exe ECU
+Output:
+EEE  CC U U 
+E   C   U U 
+EE  C   U U
+E   C   U U
+EEE  CC  UU 
 */
 
+// Import the 'env' module to access command-line arguments.
 use std::env;
 
+// Define a constant array of ASCII art blocks for each uppercase letter A-Z.
+// Each entry is a multi-line string representing the letter in ASCII art.
 const BLOCKS: [&str; 26] = [
     " A \nA A\nAAA\nA A\nA A", // A
     "BB \nB B\nBB \nB B\nBB ", // B
@@ -40,26 +47,39 @@ const BLOCKS: [&str; 26] = [
 ];
 
 fn main() {
+    // Collect all command-line arguments into a vector of strings.
+    // args[0] is the program name, args[1] is the text to convert to ASCII art.
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
+        // Print usage instructions if the argument count is incorrect.
         eprintln!("Usage: ascii-art <text>");
         std::process::exit(1);
     }
+    // Convert the input text to uppercase so it matches the BLOCKS array.
     let text = args[1].to_uppercase();
+
+    // Prepare a vector to hold each line of the final ASCII art output.
+    // There are 5 lines in each letter block.
     let mut lines = vec![String::new(); 5];
+
+    // For each character in the input text:
     for ch in text.chars() {
+        // If the character is an uppercase letter A-Z, get its ASCII art block.
         if ch >= 'A' && ch <= 'Z' {
             let block = BLOCKS[(ch as usize) - ('A' as usize)];
+            // Add each line of the block to the corresponding output line.
             for (i, line) in block.lines().enumerate() {
                 lines[i].push_str(line);
-                lines[i].push(' ');
+                lines[i].push(' '); // Add a space between letters.
             }
         } else {
+            // For non-letter characters, add spaces to keep alignment.
             for l in &mut lines {
                 l.push_str("    ");
             }
         }
     }
+    // Print each line of the ASCII art.
     for line in lines {
         println!("{}", line);
     }

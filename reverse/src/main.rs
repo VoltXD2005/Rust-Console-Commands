@@ -12,25 +12,23 @@
 # olleh
 # dlrow
 */
-use std::env;
-use std::fs::File;
-use std::io::{self, BufRead, BufReader};
 
-fn main() -> io::Result<()> {
+// This is a simple Rust program that reverses a string.
+// It demonstrates how to read command-line arguments and manipulate strings.
+
+use std::env;
+
+fn main() {
+    // args[0] is the program name, args[1] is the string to reverse.
     let args: Vec<String> = env::args().collect();
-    if args.len() == 2 {
-        // Reverse string argument
-        println!("{}", args[1].chars().rev().collect::<String>());
-    } else if args.len() == 3 && args[1] == "-f" {
-        // Reverse each line in file
-        let file = File::open(&args[2])?;
-        let reader = BufReader::new(file);
-        for line in reader.lines() {
-            let l = line?;
-            println!("{}", l.chars().rev().collect::<String>());
-        }
-    } else {
-        eprintln!("Usage: reverse <string> OR reverse -f <filename>");
+
+    if args.len() != 2 {
+        eprintln!("Usage: reverse <string>");
+        std::process::exit(1);
     }
-    Ok(())
+
+    let s = &args[1];
+    // Reverse the string using 'chars().rev().collect()'.
+    let reversed: String = s.chars().rev().collect();
+    println!("{}", reversed);
 }

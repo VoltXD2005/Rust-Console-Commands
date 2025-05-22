@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "ecu-cd"
+name = "my-cd"
 version = "0.1.0"

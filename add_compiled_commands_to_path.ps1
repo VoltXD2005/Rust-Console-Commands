@@ -1,0 +1,1 @@
+$env:PATH += ";$PWD\compiled_commands"
