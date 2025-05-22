@@ -33,7 +33,7 @@ fn main() {
         return;
     }
 
-    let month = parts[0].trim().parse::<u32>().unwrap_or(0);
+    let month: u32 = parts[0].trim().parse().unwrap_or(0);
     // println!("month: {}", month);
     // println!("parts[1]: {}", parts[1]);
 
