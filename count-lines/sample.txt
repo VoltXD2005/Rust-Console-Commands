@@ -1,0 +1,6 @@
+// this is a comment
+// another comment
+
+println!("Hello");
+let x = 10;
+let y = x + 5;
